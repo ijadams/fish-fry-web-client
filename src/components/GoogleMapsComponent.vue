@@ -21,69 +21,87 @@
 </template>
 
 <style lang="scss">
-.main {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  .search-bar {
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    h2 {
-      margin: 0 auto;
+  .main {
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    .search-bar {
+      height: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      h2 {
+        margin: 0 auto;
+      }
+    }
+
+    .vue-map-container {
+      height: 80%;
+      width: 100%;
     }
   }
-  .vue-map-container {
-    height: 80%;
-    width: 100%;
-  }
-}
 </style>
 
 <script>
-export default {
-  name: "GoogleMap",
-  data() {
-    return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      center: { lat: 45.508, lng: -73.587 },
-      markers: [],
-      places: [],
-      currentPlace: null
-    };
-  },
+  import axios from 'axios'
 
-  mounted() {
-    this.geolocate();
-  },
-
-  methods: {
-    // receives a place object via the autocomplete component
-    setPlace(place) {
-      this.currentPlace = place;
-    },
-    addMarker() {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
-        };
-        this.markers.push({ position: marker });
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
+  export default {
+    name: 'GoogleMap',
+    data () {
+      return {
+        // default to nola
+        center: {lat: 30, lng: -90},
+        markers: [],
+        locations: [],
+        currentPlace: null
       }
     },
-    geolocate: () => {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      });
+    methods: {
+      // receives a place object via the autocomplete component
+      setPlace (place) {
+        this.currentPlace = place
+      },
+      addMarker () {
+        if (this.currentPlace) {
+          const marker = {
+            lat: this.currentPlace.geometry.location.lat(),
+            lng: this.currentPlace.geometry.location.lng()
+          }
+          this.markers.push({position: marker})
+          this.locations.push(this.currentPlace)
+          this.center = marker
+          this.currentPlace = null
+        }
+      },
+      addMarkers(locations) {
+        let arr = [];
+        locations.data.forEach(l => {
+          arr.push({position: {lat: l.geo[0].latitude, lng: l.geo[0].longitude}})
+        })
+        this.markers = arr;
+      },
+      geolocate: () => {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        })
+      }
+    },
+    created () {
+      axios.get(`https://ijadams.s3.amazonaws.com/fish-fry-web/fish-fry.json`)
+        .then(res => {
+          this.locations = res.data
+          this.addMarkers(res.data);
+        }, err => {
+          return new Error(err);
+        });
+    },
+    mounted () {
+      this.geolocate();
     }
   }
-};
 </script>
