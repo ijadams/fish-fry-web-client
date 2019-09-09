@@ -8,7 +8,7 @@ import {credentials} from '../config/credentials'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: credentials.GOOGLE_MAPS_API,
+    key: credentials.GOOGLE_MAPS_API || process.env.GOOGLE_MAPS_API,
     libraries: 'places'
   }
 })

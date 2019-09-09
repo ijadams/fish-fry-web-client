@@ -10,11 +10,15 @@
       </div>
     </div>
     <gmap-map :center="center" :zoom="12">
+      <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
+                        @closeclick="infoWinOpen=false">
+        {{infoContent}}
+      </gmap-info-window>
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
-        @click="center=m.position"
+        @click="toggleInfo(m, index)"
       ></gmap-marker>
     </gmap-map>
   </div>
@@ -52,14 +56,23 @@
     data () {
       return {
         // default to nola
-        center: {lat: 30, lng: -90},
+        center: {lat: 29.9511, lng: -90.0715},
         markers: [],
         locations: [],
+        infoWinOpen: false,
+        infoContent: '',
+        currentMidx: null,
+        infoWindowPos: {lat: 29.9511, lng: -90.0715},
+        infoOptions: {
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        },
         currentPlace: null
       }
     },
     methods: {
-      // receives a place object via the autocomplete component
       setPlace (place) {
         this.currentPlace = place
       },
@@ -75,33 +88,45 @@
           this.currentPlace = null
         }
       },
-      addMarkers(locations) {
-        let arr = [];
+      addMarkers (locations) {
+        let arr = []
         locations.data.forEach(l => {
-          arr.push({position: {lat: l.geo[0].latitude, lng: l.geo[0].longitude}})
+          const lat = l.geo.length ? l.geo[0].latitude : 30
+          const long = l.geo.length ? l.geo[0].longitude : -90
+          arr.push({position: {lat: parseFloat(lat), lng: parseFloat(long)}})
         })
-        this.markers = arr;
+        this.markers = arr
       },
-      geolocate: () => {
+      geolocate () {
         navigator.geolocation.getCurrentPosition(position => {
           this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lat: parseFloat(position.coords.latitude),
+            lng: parseFloat(position.coords.longitude)
           }
         })
+      },
+      toggleInfo (marker, idx) {
+        this.infoWindowPos = marker.position
+        this.infoContent = '<h1>help</h1>'
+        if (this.currentMidx === idx) {
+          this.infoWinOpen = !this.infoWinOpen
+        } else {
+          this.infoWinOpen = true
+          this.currentMidx = idx
+        }
       }
     },
     created () {
       axios.get(`https://ijadams.s3.amazonaws.com/fish-fry-web/fish-fry.json`)
         .then(res => {
           this.locations = res.data
-          this.addMarkers(res.data);
+          this.addMarkers(res.data)
         }, err => {
-          return new Error(err);
-        });
+          return new Error(err)
+        })
     },
     mounted () {
-      this.geolocate();
+      this.geolocate()
     }
   }
 </script>
