@@ -4,11 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import {credentials} from '../config/credentials'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: credentials.GOOGLE_MAPS_API || process.env.GOOGLE_MAPS_API,
+    key: process.env.GOOGLE_MAPS_API,
     libraries: 'places'
   }
 })

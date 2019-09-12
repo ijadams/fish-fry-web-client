@@ -9,6 +9,7 @@ yarn.lock
 .env
 credentials.js
 dist/*
+config/
 
 # Logs #
 npm-debug.log*
@@ -16,7 +17,6 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 results/
-config/
 app_dependencies.json
 cordovaApp/
 Dockerfile
