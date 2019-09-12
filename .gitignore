@@ -1,5 +1,7 @@
 # NPM & YARN #
 ##############
+config/dev.env.js
+
 .idea/*
 node_modules/
 .npm
