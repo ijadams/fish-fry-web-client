@@ -12,7 +12,23 @@
     <gmap-map :center="center" :zoom="12">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
                         @closeclick="infoWinOpen=false">
-        {{infoContent}}
+        <h1>{{infoContent.title}}</h1>
+        <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
+        <p v-if="infoContent.email">Email: {{infoContent.email}}</p>
+        <h3>{{ infoContent.everyFriday ? 'Every Friday Between' : 'Dates:' }}</h3>
+        <ul id="dates">
+          <li v-for="date in infoContent.dates" v-bind:key="date">
+            {{date}}
+          </li>
+        </ul>
+        <p v-if="infoContent.startTime">Start: {{infoContent.startTime}}</p>
+        <p v-if="infoContent.endTime">End: {{infoContent.endTime}}</p>
+        <h3>Food</h3>
+        <ul id="snacks">
+          <li v-for="item in infoContent.food" v-bind:key="item">
+            {{item}}
+          </li>
+        </ul>
       </gmap-info-window>
       <gmap-marker
         :key="index"
@@ -55,12 +71,11 @@
     name: 'GoogleMap',
     data () {
       return {
-        // default to nola
         center: {lat: 29.9511, lng: -90.0715},
         markers: [],
         locations: [],
         infoWinOpen: false,
-        infoContent: '',
+        infoContent: {},
         currentMidx: null,
         infoWindowPos: {lat: 29.9511, lng: -90.0715},
         infoOptions: {
@@ -93,7 +108,7 @@
         locations.data.forEach(l => {
           const lat = l.geo.length ? l.geo[0].latitude : 30
           const long = l.geo.length ? l.geo[0].longitude : -90
-          arr.push({position: {lat: parseFloat(lat), lng: parseFloat(long)}})
+          arr.push({position: {lat: parseFloat(lat), lng: parseFloat(long)}, info: l})
         })
         this.markers = arr
       },
@@ -107,7 +122,7 @@
       },
       toggleInfo (marker, idx) {
         this.infoWindowPos = marker.position
-        this.infoContent = '<h1>help</h1>'
+        this.infoContent = marker.info
         if (this.currentMidx === idx) {
           this.infoWinOpen = !this.infoWinOpen
         } else {
