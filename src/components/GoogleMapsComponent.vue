@@ -8,6 +8,7 @@
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
                         @closeclick="infoWinOpen=false">
         <h1>{{infoContent.title}}</h1>
+        <hr>
         <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
         <p v-if="infoContent.email">Email: {{infoContent.email}}</p>
         <h3>{{ infoContent.everyFriday ? 'Every Friday Between' : 'Dates:' }}</h3>
@@ -58,6 +59,7 @@
         text-transform: lowercase;
         font-size: 1.618rem;
       }
+
       h2 {
         font-size: 1rem;
         margin: 0 auto;
@@ -72,14 +74,71 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
       h2 {
         margin: 0 auto;
+      }
+    }
+
+    .gm-style-iw.gm-style-iw-c {
+      border-radius: 0.4rem;
+      padding: 0;
+      min-width: 33vw;
+      min-height: 33vh;
+
+      .gm-style-iw-d {
+        padding: 0.4rem;
+        overflow: hidden !important;
+      }
+
+      .gm-style-iw-d > div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        h1 {
+          font-size: 1.2rem;
+          text-transform: lowercase;
+          letter-spacing: 1px;
+        }
+
+        h3 {
+          font-weight: 400;
+        }
+
+        hr {
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          width: 1rem;
+        }
+
+        ul {
+          margin: 0 auto;
+          padding: 0;
+
+          li {
+            padding: 0;
+            margin: 0 auto;
+            list-style: none;
+          }
+        }
+
+        ul#snacks {
+          display: flex;
+          flex-wrap: wrap;
+
+          li {
+            flex: 1 0 33%;
+            box-sizing: border-box;
+            padding: 0.4rem;
+          }
+        }
       }
     }
 
     .vue-map-container {
       height: 100%;
       width: 100%;
+
       .gm-style img {
         height: 1rem;
         width: 1rem;
