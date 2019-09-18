@@ -1,15 +1,10 @@
 <template>
   <div class="main">
-    <div class="search-bar">
-      <div>
-        <h2>Search and add a pin</h2>
-        <label>
-          <gmap-autocomplete @place_changed="setPlace"></gmap-autocomplete>
-          <button @click="addMarker">Add</button>
-        </label>
-      </div>
+    <div id="banner">
+      <h1>NOLA Fish Fries</h1>
+      <h2>Lent 2018</h2>
     </div>
-    <gmap-map :center="center" :zoom="12">
+    <gmap-map :center="center" :zoom="12" :options="mapConfig">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
                         @closeclick="infoWinOpen=false">
         <h1>{{infoContent.title}}</h1>
@@ -32,6 +27,7 @@
       </gmap-info-window>
       <gmap-marker
         :key="index"
+        :icon="{ url: 'https://ijadams.s3.amazonaws.com/map-marker-sm.svg'}"
         v-for="(m, index) in markers"
         :position="m.position"
         @click="toggleInfo(m, index)"
@@ -46,29 +42,60 @@
     width: 100%;
     position: relative;
 
+    #banner {
+      background: rgba(0, 0, 0, 0.66);
+      padding: 1rem 1.316rem;
+      z-index: 1;
+      position: absolute;
+      width: 100%;
+      top: 0;
+
+      h1 {
+        margin: 0 auto;
+        color: white;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: lowercase;
+        font-size: 1.618rem;
+      }
+      h2 {
+        font-size: 1rem;
+        margin: 0 auto;
+        color: white;
+        font-weight: 100;
+        text-transform: lowercase;
+        letter-spacing: 1px;
+      }
+    }
+
     .search-bar {
-      height: 20%;
       display: flex;
       align-items: center;
       justify-content: center;
-
       h2 {
         margin: 0 auto;
       }
     }
 
     .vue-map-container {
-      height: 80%;
+      height: 100%;
       width: 100%;
+      .gm-style img {
+        height: 1rem;
+        width: 1rem;
+      }
     }
   }
 </style>
 
 <script>
   import axios from 'axios'
+  import FilterBarComponent from './FilterBarComponent'
+  import {mapConfig} from '../constants/map-config'
 
   export default {
     name: 'GoogleMap',
+    components: {FilterBarComponent},
     data () {
       return {
         center: {lat: 29.9511, lng: -90.0715},
@@ -78,6 +105,7 @@
         infoContent: {},
         currentMidx: null,
         infoWindowPos: {lat: 29.9511, lng: -90.0715},
+        mapConfig: mapConfig,
         infoOptions: {
           pixelOffset: {
             width: 0,
@@ -90,18 +118,6 @@
     methods: {
       setPlace (place) {
         this.currentPlace = place
-      },
-      addMarker () {
-        if (this.currentPlace) {
-          const marker = {
-            lat: this.currentPlace.geometry.location.lat(),
-            lng: this.currentPlace.geometry.location.lng()
-          }
-          this.markers.push({position: marker})
-          this.locations.push(this.currentPlace)
-          this.center = marker
-          this.currentPlace = null
-        }
       },
       addMarkers (locations) {
         let arr = []
@@ -141,7 +157,6 @@
         })
     },
     mounted () {
-      this.geolocate()
     }
   }
 </script>
