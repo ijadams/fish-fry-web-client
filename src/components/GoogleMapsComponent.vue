@@ -2,7 +2,7 @@
   <div class="main">
     <div id="banner">
       <h1>NOLA Fish Fries</h1>
-      <h2>Lent 2018</h2>
+      <h2>Lent 2019</h2>
     </div>
     <gmap-map :center="center" :zoom="12" :options="mapConfig">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
@@ -28,7 +28,7 @@
       </gmap-info-window>
       <gmap-marker
         :key="index"
-        :icon="{ url: 'https://ijadams.s3.amazonaws.com/map-marker-sm.svg'}"
+        :icon="{ url: 'https://ijadams.s3.amazonaws.com/fish-fry-web/map-marker-sm.svg'}"
         v-for="(m, index) in markers"
         :position="m.position"
         @click="toggleInfo(m, index)"
@@ -45,12 +45,11 @@
 
     #banner {
       background: rgba(0, 0, 0, 0.66);
-      padding: 1rem 1.316rem;
+      padding: 0.4rem 0;
       z-index: 1;
       position: absolute;
       width: 100%;
       top: 0;
-
       h1 {
         margin: 0 auto;
         color: white;
