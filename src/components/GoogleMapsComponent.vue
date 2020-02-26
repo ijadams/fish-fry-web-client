@@ -100,12 +100,12 @@
 
         h1 {
           font-size: 1.2rem;
-          text-transform: lowercase;
+          text-transform: uppercase;
           letter-spacing: 1px;
         }
 
         h3 {
-          font-weight: 400;
+          font-weight: 700;
         }
 
         hr {
