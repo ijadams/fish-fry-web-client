@@ -2,29 +2,29 @@
   <div class="main">
     <div id="banner">
       <h1>NOLA Fish Fries</h1>
-      <h2>Lent 2019</h2>
+      <h2>Lent 2020</h2>
     </div>
     <gmap-map :center="center" :zoom="12" :options="mapConfig">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
                         @closeclick="infoWinOpen=false">
-        <h1>{{infoContent.title}}</h1>
-        <hr>
-        <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
-        <p v-if="infoContent.email">Email: {{infoContent.email}}</p>
-        <h3>{{ infoContent.everyFriday ? 'Every Friday Between' : 'Dates:' }}</h3>
-        <ul id="dates">
-          <li v-for="date in infoContent.dates" v-bind:key="date">
-            {{date}}
-          </li>
-        </ul>
-        <p v-if="infoContent.startTime">Start: {{infoContent.startTime}}</p>
-        <p v-if="infoContent.endTime">End: {{infoContent.endTime}}</p>
-        <h3>Food</h3>
-        <ul id="snacks">
-          <li v-for="item in infoContent.food" v-bind:key="item">
-            {{item}}
-          </li>
-        </ul>
+        <div class="info-container">
+          <h1>{{infoContent.title}}</h1>
+          <hr>
+          <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
+          <p v-if="infoContent.email">Email: {{infoContent.email}}</p>
+          <ul id="dates">
+            <li v-for="(date, index) in infoContent.dates" v-bind:key="date">
+              <span v-if="index === infoContent.dates.length - 1">and {{date}}</span>
+              <span v-if="index !== infoContent.dates.length - 1">{{date}},&nbsp;</span>
+            </li>
+          </ul>
+          <p class="start" v-if="infoContent.startTime && infoContent.endTime">{{infoContent.startTime}} until {{infoContent.endTime}}</p>
+          <ul id="snacks" v-if="infoContent.food.length">
+            <li v-for="item in infoContent.food" v-bind:key="item">
+              {{item}}
+            </li>
+          </ul>
+        </div>
       </gmap-info-window>
       <gmap-marker
         :key="index"
@@ -84,6 +84,9 @@
       padding: 0;
       min-width: 33vw;
       min-height: 33vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .gm-style-iw-d {
         padding: 0.4rem;
@@ -121,17 +124,40 @@
           }
         }
 
+        #dates {
+          display: block;
+          li {
+            font-weight: bold;
+            display: inline-block;
+          }
+        }
+
         ul#snacks {
+          margin-top: 1rem;
+          background: black;
+          color: white;
           display: flex;
           flex-wrap: wrap;
-
+          border-radius: 0.4rem;
+          padding: 1rem;
           li {
+            font-weight: bold;
             flex: 1 0 33%;
             box-sizing: border-box;
             padding: 0.4rem;
+            text-transform: capitalize;
           }
         }
+
+        .start, .end {
+          font-weight: bold;
+          display: inline-block;
+        }
       }
+    }
+
+    .info-container {
+      padding: 0 2rem;
     }
 
     .vue-map-container {
