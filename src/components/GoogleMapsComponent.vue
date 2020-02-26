@@ -22,10 +22,11 @@
           </ul>
           <p class="start" v-if="infoContent.startTime && infoContent.endTime">{{infoContent.startTime}} until {{infoContent.endTime}}</p>
           <ul id="snacks" v-if="infoContent.food && infoContent.food.length">
-            <li v-for="item in infoContent.food" v-bind:key="item">
+            <li class="md-chip" v-for="item in infoContent.food" v-bind:key="item">
               {{item}}
             </li>
           </ul>
+          <p v-if="!infoContent.food || !infoContent.food.length">No description of sides reported.</p>
         </div>
       </gmap-info-window>
       <gmap-marker
@@ -90,6 +91,14 @@
       align-items: center;
       justify-content: center;
 
+      button.gm-ui-hover-effect {
+        top: 0 !important;
+        right: 0 !important;
+      }
+      &:after {
+        top: -5px !important;
+      }
+
       .gm-style-iw-d {
         padding: 0.4rem;
         overflow: hidden !important;
@@ -133,22 +142,28 @@
             display: inline-block;
           }
         }
-
         ul#snacks {
-          margin-top: 1rem;
-          background: black;
-          color: white;
-          display: flex;
-          flex-wrap: wrap;
           border-radius: 0.4rem;
           padding: 1rem;
           li {
-            font-weight: bold;
-            flex: 1 0 33%;
+            font-weight: 100;
             box-sizing: border-box;
             padding: 0.4rem;
             text-transform: capitalize;
+            margin: 4px;
           }
+          li.md-chip {
+            display: inline-block;
+            background: #e0e0e0;
+            padding: 4px 12px;
+            border-radius: 32px;
+            font-size: 14px;
+            text-transform: capitalize !important;
+            &.md-chip-hover:hover {
+              background: #ccc;
+            }
+          }
+
         }
 
         .start, .end {
