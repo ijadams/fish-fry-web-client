@@ -85,8 +85,8 @@
     .gm-style-iw.gm-style-iw-c {
       border-radius: 0.4rem;
       padding: 0;
-      min-width: 33vw;
-      min-height: 33vh;
+      min-width: 300px;
+      min-height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -158,7 +158,7 @@
             padding: 4px 12px;
             border-radius: 32px;
             font-size: 14px;
-            text-transform: capitalize !important;
+            text-transform: lowercase !important;
             &.md-chip-hover:hover {
               background: #ccc;
             }
