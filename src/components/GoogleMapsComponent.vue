@@ -101,13 +101,13 @@
 
       .gm-style-iw-d {
         padding: 0.4rem;
-        overflow: hidden !important;
+        overflow: scroll !important;
       }
 
       .gm-style-iw-d > div {
         width: 100%;
         height: 100%;
-        overflow: hidden;
+        overflow: scroll;
 
         h1 {
           font-size: 1.2rem;
