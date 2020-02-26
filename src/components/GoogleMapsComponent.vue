@@ -11,15 +11,14 @@
           <h1>{{infoContent.title}}</h1>
           <hr>
           <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
-          <p v-if="infoContent.email">Email: {{infoContent.email}}</p>
-          <ul id="dates">
+          <ul v-if="infoContent.dates && infoContent.dates.length" id="dates">
             <li v-for="(date, index) in infoContent.dates" v-bind:key="date">
               <span v-if="index === infoContent.dates.length - 1">and {{date}}</span>
               <span v-if="index !== infoContent.dates.length - 1">{{date}},&nbsp;</span>
             </li>
           </ul>
           <p class="start" v-if="infoContent.startTime && infoContent.endTime">{{infoContent.startTime}} until {{infoContent.endTime}}</p>
-          <ul id="snacks" v-if="infoContent.food.length">
+          <ul id="snacks" v-if="infoContent.food && infoContent.food.length">
             <li v-for="item in infoContent.food" v-bind:key="item">
               {{item}}
             </li>
