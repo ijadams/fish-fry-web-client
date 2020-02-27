@@ -1,4 +1,4 @@
-# The Front-End of Fish Fry Tracker
+# Fish Fry Vue App
 
 [fishfrytracker.com](https://www.fishfrytracker.com)
 
