@@ -9,3 +9,4 @@
 
 # Deployment
 - Using netlify cli to deploy right now since there is an issue with Vue recognizing the env variables stored in Netlify.
+`npm run build && netlify deploy --prod`
