@@ -1,8 +1,6 @@
-# Fish Fry Vue App
+# Fish Fry Vue App[fishfrytracker.com](https://www.fishfrytracker.com)
 
-[fishfrytracker.com](https://www.fishfrytracker.com)
-
-# Development
+[fishfrytracker.com](https://fishfrytracker.com)
 - Clone this repo
 - Clone the config repo (private) with down into a folder named config `fish-fry-web-client/config`.
 - run `npm i && npm start`
