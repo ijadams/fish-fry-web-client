@@ -12,15 +12,15 @@
           <h1>{{infoContent.title}}</h1>
           <hr>
           <h3 v-if="infoContent.street">{{infoContent.street}}</h3>
-          <ul v-if="infoContent.dates && infoContent.dates.length" id="dates">
-            <li v-if="infoContent.dates.length === 1">
-              {{infoContent.dates[0]}}
-            </li>
-            <li v-if="infoContent.dates.length > 1" v-for="(date, index) in infoContent.dates" v-bind:key="date">
-              <span v-if="index === infoContent.dates.length - 1">and {{date}}</span>
-              <span v-if="index !== infoContent.dates.length - 1">{{date}},&nbsp;</span>
-            </li>
-          </ul>
+<!--          <ul v-if="infoContent.dates && infoContent.dates.length" id="dates">-->
+<!--            <li v-if="infoContent.dates.length === 1">-->
+<!--              {{infoContent.dates[0]}}-->
+<!--            </li>-->
+<!--            <li v-if="infoContent.dates.length > 1" v-for="(date, index) in infoContent.dates" v-bind:key="date">-->
+<!--              <span v-if="index === infoContent.dates.length - 1">and {{date}}</span>-->
+<!--              <span v-if="index !== infoContent.dates.length - 1">{{date}},&nbsp;</span>-->
+<!--            </li>-->
+<!--          </ul>-->
           <p class="start" v-if="infoContent.startTime && infoContent.endTime">{{infoContent.startTime}} until {{infoContent.endTime}}</p>
           <ul id="snacks" v-if="infoContent.food && infoContent.food.length">
             <li class="md-chip" v-for="item in infoContent.food" v-bind:key="item">
