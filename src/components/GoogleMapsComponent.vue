@@ -2,7 +2,7 @@
   <div class="main">
     <div id="banner">
       <h1>NOLA Fish Fries</h1>
-      <h2>Lent 2020</h2>
+      <h2>Lent 2022</h2>
     </div>
     <gmap-map :center="center" :zoom="12" :options="mapConfig">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
