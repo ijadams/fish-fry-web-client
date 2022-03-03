@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <div id="banner">
+      <a href="http://jjadamsband.com" target="_blank"><img src="https://res.cloudinary.com/ia-interactive/image/upload/v1644252818/favicon_uz3xb8.png"/></a>
       <h1>NOLA Fish Fries</h1>
       <h2>Lent 2022</h2>
     </div>
@@ -53,6 +54,13 @@
       position: absolute;
       width: 100%;
       top: 0;
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: calc(100% - 10px);
+        padding: 5px;
+      }
       h1 {
         margin: 0 auto;
         color: white;
