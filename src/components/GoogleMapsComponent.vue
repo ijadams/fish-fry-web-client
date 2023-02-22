@@ -3,7 +3,7 @@
     <div id="banner">
       <a href="http://jjadamsband.com" target="_blank"><img src="https://res.cloudinary.com/ia-interactive/image/upload/v1644252818/favicon_uz3xb8.png"/></a>
       <h1>NOLA Fish Fries</h1>
-      <h2>Lent 2022</h2>
+      <h2>Lent 2023</h2>
     </div>
     <gmap-map :center="center" :zoom="12" :options="mapConfig">
       <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen"
