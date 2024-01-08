@@ -1,4 +1,4 @@
-# Fish Fry Vue App[fishfrytracker.com](https://www.fishfrytracker.com)
+# Fish Fry Vue App [fishfrytracker.com](https://fishfrytracker.com)
 
 [fishfrytracker.com](https://fishfrytracker.com)
 - Clone this repo
